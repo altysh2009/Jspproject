@@ -7,11 +7,7 @@ package controller_servlet;
 
 import child_daos_implementation.UserDaoImplementation;
 import dtos.User;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.PrintWriter;
 import javax.annotation.Resource;
 import javax.servlet.ServletException;
@@ -24,7 +20,7 @@ import javax.sql.DataSource;
  *
  * @author abanoub samy
  */
-public class ControllerServlet extends HttpServlet {
+public class SignUpServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,6 +31,7 @@ public class ControllerServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    
     
     @Resource(name = "jdbc/eCommerce")
     private DataSource dataSource;
@@ -50,6 +47,7 @@ public class ControllerServlet extends HttpServlet {
         
     }
     
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -58,10 +56,10 @@ public class ControllerServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ControllerServlet</title>");            
+            out.println("<title>Servlet SignUpServlet</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet ControllerServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet SignUpServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -79,32 +77,7 @@ public class ControllerServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-         File initialFile = new File("C:\\Users\\abanoub samy\\Desktop\\bob.jpg");
-         InputStream targetStream = new FileInputStream(initialFile);
-        User u =new User( "abanoub", "abanoubsamy4@yahoo.com", "1234", "8yt el 3nb","1995-01-21", targetStream, "male", "programmer", 20000);
-        
-       // userImpl.insert(u);
-       
-      /* User rUser = userImpl.login("abanoubsamy4@yahoo.com","1234");
-       
-        System.out.println(rUser.getUserName());
-        System.out.println(rUser.getUserDob());
-        
-         
-        // write the inputStream to a FileOutputStream
-        FileOutputStream outputStream = new FileOutputStream(new File("E:/bos.jpg"));
-
-		int read = 0;
-		byte[] bytes = new byte[1024];
-
-		while ((read = rUser.getUserPic().read(bytes)) != -1) {
-			outputStream.write(bytes, 0, read);
-		}
-
-        
-       */
-        
-       // processRequest(request, response);
+        processRequest(request, response);
     }
 
     /**
@@ -118,7 +91,53 @@ public class ControllerServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+      //  processRequest(request, response);
+      
+      
+      String userName = request.getParameter("username");
+      String userEmail = request.getParameter("userEmail");
+      String password = request.getParameter("password");
+      String address = request.getParameter("address");
+      String dob = request.getParameter("data of birth");
+      String userGender = request.getParameter("gender");
+      String userJob = request.getParameter("job");
+      Double userCredit = Double.valueOf(request.getParameter("credit"));
+      
+        System.out.println(userName);
+        System.out.println(userEmail);
+        System.out.println(password);
+        System.out.println(address);
+        System.out.println(dob);
+        System.out.println(userGender);
+        System.out.println(userJob);
+        System.out.println(userCredit);
+      
+       User newUser = new User();
+       
+      newUser.setUserName(userName);
+      newUser.setUserEmail(userEmail);
+      newUser.setUserPassword(password);
+      newUser.setUserAddress(address);
+      newUser.setUserDob(dob);
+      newUser.setUserGender(userGender);
+      newUser.setUserJop(userJob);
+      newUser.setUserCredit(userCredit);
+      newUser.setUserPic(null);
+      
+     if( userImpl.insert(newUser))
+     {
+         
+         System.out.println("user inserted  successful");
+     }
+//    User u =new User( "abanoub", "abanoubsamy4555@yahoo.com", "1234", "8yt el 3nb","1995-01-21", null, "male", "programmer", 20000);
+//        
+//       userImpl.insert(u);
+      
+      
+      
+ 
+      
+      
     }
 
     /**

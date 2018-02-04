@@ -6,7 +6,6 @@
 package dtos;
 
 import java.io.InputStream;
-import java.sql.Timestamp;
 
 /**
  *
@@ -25,6 +24,15 @@ public class User {
     private String userType;
     private String userJop;
     private double userCredit;
+
+    public User() {
+        
+        
+    }
+    
+    
+    
+    
 
     public User(Integer userId, String userName, String userEmail, String userPassword, String userAddress, String userDob, InputStream userPic, String userGender, String userType, String userJop, double userCredit) {
         this.userId = userId;
@@ -57,6 +65,8 @@ public class User {
         this.userJop = userJop;
         this.userCredit = userCredit;
     }
+
+    
 
     /**
      * @return the userId

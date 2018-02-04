@@ -102,9 +102,9 @@ public class UserDaoImplementation implements UserDaoInterface {
 
             return true;
 
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
 
-            ex.getMessage();
+            ex.printStackTrace();
             return false;
         } finally {
 
